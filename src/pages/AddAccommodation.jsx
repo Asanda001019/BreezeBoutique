@@ -11,6 +11,7 @@ function AddAccommodation() {
   const [image, setImage] = useState(null);
   const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
+  const [amenities, setAmenities] = useState(''); // Added amenities state
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate(); // Initialize navigate function
@@ -32,12 +33,16 @@ function AddAccommodation() {
         imageUrl = await getDownloadURL(imageRef);
       }
 
+      // Split amenities by comma and trim spaces
+      const amenitiesArray = amenities.split(',').map(amenity => amenity.trim());
+
       // Add accommodation data to Firestore
       await addDoc(accommodationsRef, {
         name,
         imageUrl,
         price: parseFloat(price),
         address,
+        amenities: amenitiesArray, // Store amenities as an array
         createdAt: new Date(),
       });
 
@@ -48,6 +53,7 @@ function AddAccommodation() {
       setImage(null);
       setPrice('');
       setAddress('');
+      setAmenities(''); // Reset amenities field
 
       // Navigate to View and Manage Accommodations page
       navigate('/view-manage-accommodations');
@@ -107,6 +113,18 @@ function AddAccommodation() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Amenities */}
+        <div>
+          <label className="block text-gray-600">Amenities (comma-separated)</label>
+          <input
+            type="text"
+            value={amenities}
+            onChange={(e) => setAmenities(e.target.value)}
+            placeholder="WiFi, Pool, Gym"
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
