@@ -1,7 +1,7 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navigation from './pages/Navigation';  // Import the Navigation component
+import Navigation from './components/Navigation';  // Import the Navigation component
 import AdminRegister from './pages/AdminRegister';
 import AdminSignIn from './pages/AdminSignIn';
 import UserRegister from './pages/UserRegister';
@@ -18,18 +18,15 @@ import AccommodationDetails from './pages/AccommodationDetails';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import NoPage from './pages/NoPage';
-import Footer from './pages/Footer';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
-        {/* Use Navigation component */}
         <Navigation />
 
-        {/* Page Content */}
         <Routes>
-          {/* Admin Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/admin/register" element={<AdminRegister />} />
           <Route path="/admin/signin" element={<AdminSignIn />} />
@@ -43,11 +40,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NoPage />} />
-
-          {/* User Routes */}
           <Route path="/user/register" element={<UserRegister />} />
           <Route path="/user/signin" element={<UserSignIn />} />
-
           <Route path="/about-us" element={<AboutUs />} />
         </Routes>
         <ToastContainer />
