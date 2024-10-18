@@ -47,7 +47,7 @@ function AccommodationsList() {
           <div key={accommodation.id} className="border p-4 rounded-lg shadow-md">
             <img src={accommodation.imageUrl} alt={accommodation.name} className="w-full h-40 object-cover rounded-md mb-4" />
             <h3 className="text-xl font-semibold">{accommodation.name}</h3>
-            <p className="text-sm text-gray-500 mb-1">Price: {accommodation.price ? `$${accommodation.price}` : 'Not available'}</p>
+            <p className="text-sm text-gray-500 mb-1">Price: {accommodation.price ? `R${accommodation.price}` : 'Not available'}</p>
             <p className="text-sm text-gray-500 mb-1">Address: {accommodation.address || 'Not available'}</p>
             <p>{accommodation.description}</p>
             <p className="text-sm text-gray-500">

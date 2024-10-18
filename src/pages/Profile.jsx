@@ -5,9 +5,9 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [profile, setProfile] = useState({
     profilePic: 'https://via.placeholder.com/150', // Placeholder image
-    name: 'Asanda',
-    surname: 'Madondo',
-    email: 'Portia949@gmail.com',
+    name: 'yourname',
+    surname: 'yoursurname',
+    email: 'username@gmail.com',
   });
 
   const navigate = useNavigate(); // Initialize useNavigate
@@ -120,13 +120,13 @@ const Profile = () => {
         <div className="mt-6 flex justify-around">
           <button
             onClick={() => navigate('/favourites')} // Navigate to Favourites page
-            className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700"
+            className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-200"
           >
             View Favourites
           </button>
           <button
             onClick={() => navigate('/history')} // Navigate to History page
-            className="px-4 py-2 text-white bg-yellow-600 rounded-lg hover:bg-yellow-700"
+            className="px-4 py-2 text-white bg-blue-200 rounded-lg hover:bg-blue-700"
           >
             View History
           </button>

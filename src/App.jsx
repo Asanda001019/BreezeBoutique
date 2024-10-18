@@ -19,6 +19,7 @@ import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import NoPage from './pages/NoPage';
 import Footer from './components/Footer';
+import Favourites from './pages/Favourites';
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
           <Route path="/user/register" element={<UserRegister />} />
           <Route path="/user/signin" element={<UserSignIn />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/favourites" element={<Favourites />} />
+          
         </Routes>
         <ToastContainer />
       </div>

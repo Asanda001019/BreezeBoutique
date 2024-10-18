@@ -46,7 +46,7 @@ const ViewManageAccommodations = () => {
           {accommodations.map((accommodation) => (
             <tr key={accommodation.id}>
               <td className="py-2 px-4 border-b">{accommodation.name}</td>
-              <td className="py-2 px-4 border-b">${accommodation.price}</td>
+              <td className="py-2 px-4 border-b">R{accommodation.price}</td>
               <td className="py-2 px-4 border-b">{accommodation.address}</td>
               <td className="py-2 px-4 border-b">
                 {accommodation.imageUrl ? (

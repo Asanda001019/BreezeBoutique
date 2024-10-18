@@ -1,12 +1,15 @@
-// UserRegister.js
+// src/components/UserRegister.js
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import { auth, db } from './Firebase'; // Adjust import paths to your Firebase configuration
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../features/userSlice'; // Adjust import path to your userSlice
 
 function UserRegister() {
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -30,6 +33,14 @@ function UserRegister() {
         email: user.email,
         uid: user.uid,
       });
+
+      // Dispatch the registerUser action (if needed)
+      await dispatch(registerUser({
+        uid: user.uid,
+        firstName,
+        surname,
+        email: user.email,
+      })).unwrap();
 
       // Navigate to a different page after successful registration
       navigate('/welcome'); // Update to your desired route

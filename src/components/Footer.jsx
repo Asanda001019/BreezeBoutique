@@ -31,7 +31,7 @@ function Footer() {
         </nav>
 
         {/* Social Media Icons */}
-        <div className="mb-6 flex justify-center space-x-6">
+        {/* <div className="mb-6 flex justify-center space-x-6">
           <a href="#" aria-label="Twitter">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ function Footer() {
               <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4..."></path>
             </svg>
           </a>
-        </div>
+        </div> */}
 
         {/* Copyright Text */}
         <p>© {new Date().getFullYear()} - All rights reserved by ACME Industries Ltd</p>

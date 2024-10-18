@@ -1,31 +1,32 @@
-// UserSignIn.js
+// src/components/UserSignIn.js
 import React, { useState } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
-import { auth } from './Firebase'; // Adjust import paths to your Firebase configuration
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../features/userSlice'; // Adjust import paths to your userSlice
 import { useNavigate } from 'react-router-dom';
 
 function UserSignIn() {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError('');
 
     try {
-      // Sign in with Firebase Auth
-      await signInWithEmailAndPassword(auth, email, password);
+      // Dispatch the loginUser action
+      await dispatch(loginUser({ email, password })).unwrap();
 
       // Show success alert
       alert('You have successfully logged in!');
 
-      // Navigate to the home page or another route after successful login
+      // Navigate to the accommodations page or another route after successful login
       navigate('/accommodations'); // Update to your desired route
     } catch (error) {
-      setError(error.message);
+      console.error(error);
+      alert(error.message); // Display the error message if login fails
     }
   };
 
@@ -63,8 +64,9 @@ function UserSignIn() {
           <button
             type="submit"
             className="w-full py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading} // Disable the button while loading
           >
-            Sign In
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
       </div>
