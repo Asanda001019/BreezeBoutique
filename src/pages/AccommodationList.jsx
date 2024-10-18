@@ -90,25 +90,28 @@ function AccommodationsList() {
               alt={accommodation.name}
               className="w-full h-40 object-cover rounded-md mb-4"
             />
-            <h3 className="text-xl font-semibold">{accommodation.name}</h3>
+
+            {/* Flex container for name and heart icon */}
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-semibold">{accommodation.name}</h3>
+              <button
+                onClick={() => toggleFavorite(accommodation)}
+                className="text-red-500"
+              >
+                {favorites.includes(accommodation.id) ? (
+                  <FaHeart className="text-2xl" />
+                ) : (
+                  <FaRegHeart className="text-2xl" />
+                )}
+              </button>
+            </div>
+            
             <p className="text-sm text-gray-500 mb-1">Price: {accommodation.price ? `R${accommodation.price}` : 'Not available'}</p>
             <p className="text-sm text-gray-500 mb-1">Address: {accommodation.address || 'Not available'}</p>
             <p>{accommodation.description}</p>
             <p className="text-sm text-gray-500">
               Amenities: {accommodation.amenities ? accommodation.amenities.join(', ') : 'Not available'}
             </p>
-
-            {/* Heart Icon for Favorite */}
-            <button
-              onClick={() => toggleFavorite(accommodation)}
-              className="absolute top-2 right-2 text-red-500"
-            >
-              {favorites.includes(accommodation.id) ? (
-                <FaHeart className="text-2xl" />
-              ) : (
-                <FaRegHeart className="text-2xl" />
-              )}
-            </button>
 
             {/* Read More Button */}
             <button
