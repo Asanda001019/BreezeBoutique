@@ -25,7 +25,7 @@ import RateUs from './pages/RateUs';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-blue-900">
+      <div className="min-h-screen bg-gray-100">
         <Navigation />
 
         <Routes>

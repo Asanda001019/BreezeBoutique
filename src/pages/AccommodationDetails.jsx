@@ -15,6 +15,7 @@ export default function AccommodationDetails() {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0); // New state to hold total price
 
   // Fetch accommodation details from Firestore by ID
   useEffect(() => {
@@ -38,6 +39,27 @@ export default function AccommodationDetails() {
     fetchAccommodation();
   }, [id]);
 
+  // Helper function to calculate the number of nights
+  const calculateNights = (checkIn, checkOut) => {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    const timeDiff = checkOutDate - checkInDate;
+    const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    return days;
+  };
+
+  // Update total price whenever dates or number of guests change
+  useEffect(() => {
+    if (checkInDate && checkOutDate && accommodation) {
+      const nights = calculateNights(checkInDate, checkOutDate);
+      if (nights > 0) {
+        const pricePerNight = accommodation.price; // Assuming accommodation has a price field
+        const calculatedTotal = pricePerNight * nights * numberOfGuests;
+        setTotalPrice(calculatedTotal);
+      }
+    }
+  }, [checkInDate, checkOutDate, numberOfGuests, accommodation]);
+
   if (loading) {
     return <p>Loading accommodation details...</p>;
   }
@@ -55,6 +77,7 @@ export default function AccommodationDetails() {
       checkIn: checkInDate,
       checkOut: checkOutDate,
       guests: numberOfGuests,
+      totalPrice,
     };
 
     console.log(bookingDetails); // You can replace this with logic to save booking details in the database
@@ -67,9 +90,11 @@ export default function AccommodationDetails() {
       <img src={accommodation.imageUrl} alt={accommodation.name} className="w-full h-64 object-cover mt-4" />
       <p className="mt-4">{accommodation.description}</p>
 
+      {/* Display price per night */}
+      <h2 className="mt-4 text-lg font-semibold">Price: ${accommodation.price} per night</h2>
+
       <h2 className="mt-6 text-xl font-semibold">Amenities:</h2>
       <ul className="mt-2">
-        {/* Ensure that amenities is defined before mapping */}
         {accommodation.amenities && accommodation.amenities.length > 0 ? (
           accommodation.amenities.map((amenity, index) => (
             <li key={index} className="text-gray-600">{amenity}</li>
@@ -114,6 +139,10 @@ export default function AccommodationDetails() {
               required
             />
           </div>
+
+          {/* Display total price */}
+          <h3 className="text-lg font-semibold">Total Price: R{totalPrice.toFixed(2)}</h3>
+
           <button
             type="submit"
             className="mt-4 bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
