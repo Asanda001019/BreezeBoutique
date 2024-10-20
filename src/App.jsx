@@ -25,7 +25,7 @@ import RateUs from './pages/RateUs';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-blue-900">
         <Navigation />
 
         <Routes>
@@ -46,7 +46,7 @@ function App() {
           <Route path="/user/signin" element={<UserSignIn />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/favourites" element={<Favourites />} />
-          <Route path='rate-us' element={<RateUs/>}/>
+          <Route path='/rate-us' element={<RateUs/>}/>
           
         </Routes>
         <ToastContainer />
