@@ -20,6 +20,7 @@ import Profile from './pages/Profile';
 import NoPage from './pages/NoPage';
 import Footer from './components/Footer';
 import Favourites from './pages/Favourites';
+import RateUs from './pages/RateUs';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/user/signin" element={<UserSignIn />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/favourites" element={<Favourites />} />
+          <Route path='rate-us' element={<RateUs/>}/>
           
         </Routes>
         <ToastContainer />
