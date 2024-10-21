@@ -77,7 +77,7 @@ export default function AccommodationDetails() {
       checkIn: checkInDate,
       checkOut: checkOutDate,
       guests: numberOfGuests,
-      totalPrice,
+      totalPrice, // Use totalPrice here
     };
 
     console.log(bookingDetails); // You can replace this with logic to save booking details in the database
