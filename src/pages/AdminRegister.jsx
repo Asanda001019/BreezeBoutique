@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FaUser, FaBuilding, FaEnvelope, FaLock } from 'react-icons/fa';
-import { auth, db } from './Firebase'; // Adjust the path as needed
+import { auth, db } from './Firebase'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { registerSuccess } from '../features/adminSlice'; // Import your action
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { registerSuccess } from '../features/adminSlice'; 
+import { useNavigate } from 'react-router-dom'; 
 
 function AdminRegister() {
   const [firstName, setFirstName] = useState('');
@@ -15,8 +15,8 @@ function AdminRegister() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const dispatch = useDispatch(); // Initialize useDispatch
-  const navigate = useNavigate(); // Initialize useNavigate
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

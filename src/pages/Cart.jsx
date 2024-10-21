@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
@@ -11,6 +11,7 @@ export default function Cart() {
   const { state } = useLocation();
   const bookingDetails = state?.bookingDetails;
   const [clientSecret, setClientSecret] = useState('');
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     if (bookingDetails?.totalPrice) {
@@ -57,7 +58,7 @@ export default function Cart() {
           <h3 className="mt-4 text-lg font-semibold">Total Price: R{bookingDetails.totalPrice.toFixed(2)}</h3>
 
           <Elements stripe={stripePromise}>
-            <CheckoutForm clientSecret={clientSecret} />
+            <CheckoutForm clientSecret={clientSecret} navigate={navigate} /> {/* Pass navigate to CheckoutForm */}
           </Elements>
         </div>
       </div>
@@ -65,7 +66,7 @@ export default function Cart() {
   );
 }
 
-function CheckoutForm({ clientSecret }) {
+function CheckoutForm({ clientSecret, navigate }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -86,10 +87,11 @@ function CheckoutForm({ clientSecret }) {
 
     if (error) {
       console.error(error);
+      alert(error.message); // Optionally show the error to the user
     } else {
       console.log('Payment successful!', paymentIntent);
       alert('Payment successful!');
-      // Add any post-payment logic here (e.g., redirect to a confirmation page)
+      navigate('/rate-us'); // Navigate to the cart page after payment success
     }
   };
 

@@ -1,4 +1,4 @@
-// adminSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
 
 
@@ -11,22 +11,22 @@ const adminSlice = createSlice({
   },
   reducers: {
     registerSuccess: (state, action) => {
-      state.adminData = action.payload; // Store admin data upon registration
-      state.isAuthenticated = true; // Set authenticated status to true
+      state.adminData = action.payload; 
+      state.isAuthenticated = true; 
       state.error = null;
     },
     loginSuccess: (state, action) => {
-      state.adminData = action.payload; // Store admin data upon login
-      state.isAuthenticated = true; // Set authenticated status to true
+      state.adminData = action.payload; 
+      state.isAuthenticated = true; 
       state.error = null;
     },
     loginFail: (state, action) => {
-      state.error = action.payload; // Store error message on login failure
+      state.error = action.payload; 
     },
     logout: (state) => {
-      state.adminData = null; // Clear admin data on logout
-      state.isAuthenticated = false; // Set authenticated status to false
-      state.error = null; // Clear error messages
+      state.adminData = null; 
+      state.isAuthenticated = false; 
+      state.error = null; 
     },
   },
 });

@@ -1,6 +1,6 @@
-// src/redux/userSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { auth } from '../pages/Firebase'; // Adjust the import according to your folder structure
+import { auth } from '../pages/Firebase'; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const initialState = {

@@ -1,10 +1,11 @@
-// RateUs.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRating, setNote, submitFeedback } from '../features/rateUsSlice'; // Adjust import based on file structure
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const RateUs = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize navigate
   const { rating, note, feedbackSubmitted } = useSelector((state) => state.rateUs);
 
   const handleRatingClick = (selectedRating) => {
@@ -14,6 +15,12 @@ const RateUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(submitFeedback());
+
+    // Show thank you alert and navigate to home after a delay
+    alert('Thank you for your feedback!'); // Show alert
+    setTimeout(() => {
+      navigate('/'); // Change this path to your home route
+    }, 2000); // Delay navigation for 2 seconds (2000 milliseconds)
   };
 
   return (
