@@ -91,7 +91,7 @@ export default function AccommodationDetails() {
       <p className="mt-4">{accommodation.description}</p>
 
       {/* Display price per night */}
-      <h2 className="mt-4 text-lg font-semibold">Price: ${accommodation.price} per night</h2>
+      <h2 className="mt-4 text-lg font-semibold">Price: R{accommodation.price} per night</h2>
 
       <h2 className="mt-6 text-xl font-semibold">Amenities:</h2>
       <ul className="mt-2">
