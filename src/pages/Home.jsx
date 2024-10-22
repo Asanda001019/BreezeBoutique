@@ -43,7 +43,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        <button>more</button>
+                       
                     </div>
 
                     <div className="relative w-full overflow-hidden lg:w-5/12 lg:order-1">
