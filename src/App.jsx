@@ -24,6 +24,7 @@ import RateUs from './pages/RateUs';
 import UserBookingHistory from './pages/UserBookingHistory';
 import AdminBookingList from './pages/AdminBookingList';
 import { AuthProvider } from './pages/UseAuth'; 
+import AdminBookingHistory from './pages/AdminBookingHistory';
 
 
 function App() {
@@ -54,6 +55,8 @@ function App() {
           <Route path='/rate-us' element={<RateUs/>}/>
           <Route path="/user-bookings" element={<UserBookingHistory />} />
           <Route path="/admin-bookings" element={<AdminBookingList />} />
+          <Route path="/admin-bookings" element={<AdminBookingHistory />} />
+          
 
           
         </Routes>

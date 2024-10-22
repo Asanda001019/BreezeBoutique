@@ -28,6 +28,12 @@ function AdminDashboard() {
           >
             View & Manage Accommodations
           </Link>
+          <Link
+            to="/admin-bookingd"
+            className="px-4 py-2 hover:bg-blue-600 focus:bg-blue-600 transition"
+          >
+            Bookings
+          </Link>
         </nav>
       </aside>
 
