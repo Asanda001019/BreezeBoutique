@@ -125,7 +125,7 @@ const Profile = () => {
             View Favourites
           </button>
           <button
-            onClick={() => navigate('/history')} // Navigate to History page
+            onClick={() => navigate('/user-bookings')} // Navigate to History page
             className="px-4 py-2 text-white bg-blue-200 rounded-lg hover:bg-blue-700"
           >
             View History
