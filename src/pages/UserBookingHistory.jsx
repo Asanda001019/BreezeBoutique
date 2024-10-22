@@ -5,7 +5,6 @@ import { useAuth } from "../pages/UseAuth"; // AuthContext to get the current us
 
 export default function UserBookingHistory() {
   const [bookings, setBookings] = useState([]);
-  const [accommodations, setAccommodations] = useState({}); // State to store accommodation details
   const { currentUser } = useAuth(); // Assuming you're using AuthContext for the current user
 
   useEffect(() => {
@@ -14,25 +13,8 @@ export default function UserBookingHistory() {
       const q = query(bookingsRef, where("userId", "==", currentUser.uid)); // Query for user-specific bookings
 
       const querySnapshot = await getDocs(q);
-      const bookingsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
+      const bookingsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setBookings(bookingsData);
-
-      // Fetch accommodation names based on accommodationIds
-      const accommodationIds = bookingsData.map((booking) => booking.accommodationId);
-      const accommodationRef = collection(db, "accommodations"); // Assuming you have an 'accommodations' collection
-      const accommodationQuery = query(accommodationRef, where("id", "in", accommodationIds)); // Change this line as needed based on your data structure
-
-      const accommodationSnapshot = await getDocs(accommodationQuery);
-      const accommodationsData = accommodationSnapshot.docs.reduce((acc, doc) => {
-        acc[doc.id] = doc.data().name; // Assuming 'name' is the field containing accommodation name
-        return acc;
-      }, {});
-
-      setAccommodations(accommodationsData);
     };
 
     fetchBookings();
@@ -45,10 +27,7 @@ export default function UserBookingHistory() {
         <ul>
           {bookings.map((booking) => (
             <li key={booking.id}>
-              Accommodation Name: {accommodations[booking.accommodationId] || "Loading..."},
-              Check-In: {booking.checkIn},
-              Check-Out: {booking.checkOut},
-              Total Price: R{booking.totalPrice}
+              Accommodation ID: {booking.accommodationId}, Check-In: {booking.checkIn}, Check-Out: {booking.checkOut}, Total Price: R{booking.totalPrice}
             </li>
           ))}
         </ul>
