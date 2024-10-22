@@ -21,9 +21,14 @@ import NoPage from './pages/NoPage';
 import Footer from './components/Footer';
 import Favourites from './pages/Favourites';
 import RateUs from './pages/RateUs';
+import UserBookingHistory from './pages/UserBookingHistory';
+import AdminBookingList from './pages/AdminBookingList';
+import { AuthProvider } from './pages/UseAuth'; 
+
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <div className="min-h-screen bg-gray-100">
         <Navigation />
@@ -47,12 +52,16 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path='/rate-us' element={<RateUs/>}/>
+          <Route path="/user-bookings" element={<UserBookingHistory />} />
+          <Route path="/admin-bookings" element={<AdminBookingList />} />
+
           
         </Routes>
         <ToastContainer />
       </div>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 }
 

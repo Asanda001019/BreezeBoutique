@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from './Firebase'; // Firebase configuration file
-import { doc, getDoc } from 'firebase/firestore'; // Firestore methods
+import { doc, getDoc, addDoc, collection } from 'firebase/firestore'; // Firestore methods
+import { useAuth } from '../pages/UseAuth'; // Assuming you have useAuth for current user
 
 export default function AccommodationDetails() {
   const { id } = useParams(); // Get the accommodation ID from the URL
   const navigate = useNavigate(); // Hook to navigate programmatically
+  const { currentUser } = useAuth(); // Get current logged-in user
 
   // State for accommodation data and loading status
   const [accommodation, setAccommodation] = useState(null);
@@ -15,6 +17,8 @@ export default function AccommodationDetails() {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0); // New state to hold total price
 
   // Fetch accommodation details from Firestore by ID
@@ -69,19 +73,39 @@ export default function AccommodationDetails() {
   }
 
   // Handle form submission for booking
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
 
+    if (!currentUser) {
+      alert("You need to be logged in to book.");
+      return;
+    }
+
     const bookingDetails = {
+      userId: currentUser.uid, // Store the current user ID
       accommodationId: accommodation.id,
+      accommodationName: accommodation.name,
       checkIn: checkInDate,
       checkOut: checkOutDate,
       guests: numberOfGuests,
+      adults,
+      children,
       totalPrice, // Use totalPrice here
+      bookedAt: new Date(), // Timestamp of the booking
     };
 
-    console.log(bookingDetails); // You can replace this with logic to save booking details in the database
-    navigate('/cart', { state: { bookingDetails } }); // Navigate to the cart page with booking details
+    try {
+      // Save booking details to Firestore in "bookings" collection
+      await addDoc(collection(db, 'bookings'), bookingDetails);
+
+      alert('Booking successful!');
+
+      // Navigate to Cart and pass booking details as state
+      navigate('/cart', { state: { bookingDetails } }); // Pass bookingDetails in state
+    } catch (error) {
+      console.error('Error saving booking:', error);
+      alert('Failed to book. Please try again later.');
+    }
   };
 
   return (
@@ -137,6 +161,27 @@ export default function AccommodationDetails() {
               className="mt-1 p-2 border border-gray-300 rounded w-full"
               min="1"
               required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Adults:</label>
+            <input
+              type="number"
+              value={adults}
+              onChange={(e) => setAdults(Math.max(1, parseInt(e.target.value)))}
+              className="mt-1 p-2 border border-gray-300 rounded w-full"
+              min="1"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Children:</label>
+            <input
+              type="number"
+              value={children}
+              onChange={(e) => setChildren(Math.max(0, parseInt(e.target.value)))}
+              className="mt-1 p-2 border border-gray-300 rounded w-full"
+              min="0"
             />
           </div>
 
